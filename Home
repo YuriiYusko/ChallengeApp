@@ -1,0 +1,77 @@
+
+using System;
+using System.Collections.Generic;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+		List<Employee> employees = new List<Employee>();
+		employees.Add(new Employee ("Yurii", "Yusko", 30));
+		employees.Add(new Employee ("Adam", "Stupka", 23));
+		employees.Add(new Employee ("Zuzia", "Marchewka", 25));
+		employees.Add(new Employee ("Adrian", "Piotrowski", 28));
+		employees.Add(new Employee ("Jolanta", "Stępień", 43));
+		Random rnd = new Random();
+		foreach (Employee e in employees) {
+			for (int i = 0; i < 5; i++) {
+				e.SetPoint(rnd.Next(1, 10));
+			}
+			Console.WriteLine(e.Name + " - " + e.ScoreRating);
+		}
+		Console.WriteLine();
+		Employee.WhoIsTheBest(employees);
+
+    }
+    
+    class Employee {
+        
+        private string name;
+        private string surname;
+        private int age;
+        private int scoreRating;
+        
+        public Employee(string name, string surname, int age){
+            this.name = name;
+            this.surname = surname;
+            this.age = age;
+            this.scoreRating = 0;
+        }
+		
+        public string Name {get {return name;}}
+		public string Surname {get {return surname;}}
+		public int Age {get {return age;}}
+		public int ScoreRating {get {return scoreRating;}}
+		
+		public void SetPoint(int point){
+			if (point > 0 && point <=10) {
+			this.scoreRating += point;
+			}
+		}
+		
+		public static void WhoIsTheBest(List<Employee> employeeList){
+			int bestIsNumber = 0;
+			int largestPoints = 0;
+			//Szukamy kto ma najwięcej punktów
+			for (int i = 0; i < employeeList.Count; i++){
+				if (employeeList[i].scoreRating > largestPoints){
+					bestIsNumber = i;
+					largestPoints = employeeList[i].scoreRating;
+				}
+			}
+			//Sprawdzamy remis
+			int countBestEmployers = 0;
+			foreach (Employee e in employeeList){
+				if (e.ScoreRating == largestPoints) {
+					countBestEmployers++;
+				}
+			}
+			//Wyniki
+			if (countBestEmployers < 2){
+			Console.WriteLine("Najwięcej punktów (" + largestPoints + ") posiada pracownik " + employeeList[bestIsNumber].Name + " " + employeeList[bestIsNumber].Surname + " (wiek - " + employeeList[bestIsNumber].Age + ")");			
+			}else{
+			Console.WriteLine("Dwie lub więcej osoby posiadają jednakową liczbę punktów.");
+			}
+		}
+    }
+}
