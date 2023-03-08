@@ -68,7 +68,7 @@ public class HelloWorld
 			}
 			//Wyniki
 			if (countBestEmployers < 2){
-			Console.WriteLine("Najwięcej punktów (" + largestPoints + ") posiada pracownik " + employeeList[bestIsNumber].Name + " " + employeeList[bestIsNumber].Surname + " (wiek - " + employeeList[bestIsNumber].Age + ")");			
+			Console.WriteLine("Najwięcej punktów (" + largestPoints + ") posiada pracownik " + employeeList[bestIsNumber].Name + " " + employeeList[bestIsNumber].Surname + " (employeeList[bestIsNumber].Age + " lat")");			
 			}else{
 			Console.WriteLine("Dwie lub więcej osoby posiadają jednakową liczbę punktów.");
 			}
