@@ -2,16 +2,36 @@
 
 //Dzień 6: Klasy i metody w klasie
 
-using ChallengeApp;
 
-User user0 = new User("Adam", "74794");
-User user1 = new User("Yurii", "18303");
-User user2 = new User("Mariana", "19452");
-User user3 = new User("Zuzi", "853013");
+using System;
+using System.Collections.Generic;
 
-user0.AddScore(5);
-user0.AddScore(3);
+namespace ChallengeApp;
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        List<Employee> employees = new List<Employee>();
+        employees.Add(new Employee("Yurii", "Yusko", 30));
+        employees.Add(new Employee("Adam", "Stupka", 23));
+        employees.Add(new Employee("Zuzia", "Marchewka", 25));
+        employees.Add(new Employee("Adrian", "Piotrowski", 28));
+        employees.Add(new Employee("Jolanta", "Stępień", 43));
+        Random rnd = new Random();
 
-Console.WriteLine(user0.Result);
-var name = User.gameName;
-Console.WriteLine(Math.PI);
+        foreach (Employee e in employees)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                e.SetPoint(rnd.Next(1, 10));
+            }
+            Console.WriteLine(e.Name + " - " + e.ScoreRating);
+        }
+
+        Console.WriteLine();
+
+        Employee.WhoIsTheBest(employees);
+
+    }
+
+}
