@@ -29,7 +29,6 @@ public class HelloWorld
         }
 
         Console.WriteLine();
-
         Employee.WhoIsTheBest(employees);
 
     }

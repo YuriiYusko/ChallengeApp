@@ -8,7 +8,6 @@ namespace ChallengeApp
 {
     class Employee
     {
-
         private string name;
         private string surname;
         private int age;
