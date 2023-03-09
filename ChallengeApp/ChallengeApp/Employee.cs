@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChallengeApp
 {
-    class Employee
+    public class Employee
     {
         private string name;
         private string surname;
@@ -28,7 +28,7 @@ namespace ChallengeApp
 
         public void SetPoint(int point)
         {
-            if (point > 0 && point <= 10)
+            if (point > -5 && point <= 10)
             {
                 this.scoreRating += point;
             }
