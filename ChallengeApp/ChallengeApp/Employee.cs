@@ -13,6 +13,13 @@ namespace ChallengeApp
         private int age;
         private int scoreRating;
 
+        public Employee()
+        {
+            this.name = "NoName";
+            this.surname = "NoSurname";
+            this.age = 0;
+            this.scoreRating = 0;
+        }
         public Employee(string name, string surname, int age)
         {
             this.name = name;
@@ -28,7 +35,7 @@ namespace ChallengeApp
 
         public void SetPoint(int point)
         {
-            if (point > -5 && point <= 10)
+            if (point >= -5 && point <= 10)
             {
                 this.scoreRating += point;
             }
