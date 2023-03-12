@@ -17,19 +17,22 @@ namespace ChallengeApp.Tests
         [Test]
         public void EmployeeStatTest()
         {
-
             float Average = 0;
             var Max = float.MinValue;
             var Min = float.MaxValue;
 
             for (int i = 0; i < 10; i++){
                 var value = random.Next(101);
-                Console.WriteLine(value);
+                Console.WriteLine($"{i+1} - {value}");
                 emp.AddGrade(value);
                 Max = Math.Max(value, Max);
                 Min = Math.Min(value, Min);
                 Average += value;
             }
+
+            Console.WriteLine($"Max is - {Max}");
+            Console.WriteLine($"Min is - {Min}");
+            Console.WriteLine($"Average is - {Average / 10}");
 
             Statistics stat = emp.GetStatistics();
 
