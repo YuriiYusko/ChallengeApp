@@ -8,78 +8,36 @@ namespace ChallengeApp
 {
     public class Employee
     {
-        private string name;
-        private string surname;
-        private int age;
-        private int scoreRating;
+        private List<float> grades = new();
 
-        public Employee()
+        public Employee(string name, string surname)
         {
-            this.name = "NoName";
-            this.surname = "NoSurname";
-            this.age = 0;
-            this.scoreRating = 0;
-        }
-        public Employee(string name, string surname, int age)
-        {
-            this.name = name;
-            this.surname = surname;
-            this.age = age;
-            this.scoreRating = 0;
+            this.Name = name;
+            this.Surname = surname;
         }
 
-        public string Name { get { return name; } }
-        public string Surname { get { return surname; } }
-        public int Age { get { return age; } }
-        public int ScoreRating { get { return scoreRating; } }
-
-        public void SetPoint(int point)
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
+        
+        public void AddGrade(float grade)
         {
-            if (point >= -5 && point <= 10)
-            {
-                this.scoreRating += point;
-            }
+            grades.Add(grade);
         }
 
-        public static void WhoIsTheBest(List<Employee> employeeList)
+        public Statistics GetStatistics()
         {
-            int bestIsNumber = 0;
-            int largestPoints = 0;
-            //Szukamy kto ma najwięcej punktów
-            for (int i = 0; i < employeeList.Count; i++)
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+            foreach (var grade in this.grades)
             {
-                if (employeeList[i].scoreRating > largestPoints)
-                {
-                    bestIsNumber = i;
-                    largestPoints = employeeList[i].scoreRating;
-                }
+                statistics.Max = Math.Max(statistics.Max, grade);
+                statistics.Min = Math.Min(statistics.Min, grade);
+                statistics.Average += grade;
             }
-            //Sprawdzamy remis
-            int countBestEmployers = 0;
-            foreach (Employee e in employeeList)
-            {
-                if (e.ScoreRating == largestPoints)
-                {
-                    countBestEmployers++;
-                }
-            }
-            //Wyniki
-            if (countBestEmployers < 2)
-            {
-                Console.WriteLine("Najwięcej punktów ("
-                    + largestPoints
-                    + ") posiada pracownik "
-                    + employeeList[bestIsNumber].Name
-                    + " "
-                    + employeeList[bestIsNumber].Surname
-                    + " (Wiek - "
-                    + (employeeList[bestIsNumber].Age
-                    + ")"));
-            }
-            else
-            {
-                Console.WriteLine("Dwie lub więcej osoby posiadają jednakową liczbę punktów.");
-            }
+            statistics.Average /= this.grades.Count;
+            return statistics;
         }
     }
 }

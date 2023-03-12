@@ -5,34 +5,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ChallengeApp;
 public class HelloWorld
 {
     public static void Main(string[] args)
     {
-        List<Employee> employees = new List<Employee>
-        {
-            new Employee("Yurii", "Yusko", 30),
-            new Employee("Adam", "Stupka", 23),
-            new Employee("Zuzia", "Marchewka", 25),
-            new Employee("Adrian", "Piotrowski", 28),
-            new Employee("Jolanta", "Stępień", 43)
-        };
-        Random rnd = new Random();
-
-        foreach (Employee e in employees)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                e.SetPoint(rnd.Next(-5, 10));
-            }
-            Console.WriteLine(e.Name + " - " + e.ScoreRating);
-        }
-
-        Console.WriteLine();
-        Employee.WhoIsTheBest(employees);
-
+        var employee0 = new Employee("Yurii", "Yusko");
+        employee0.AddGrade(2);
+        employee0.AddGrade(10);
+        employee0.AddGrade(5);
+        var statistics = employee0.GetStatistics();
+        Console.WriteLine($"Max is {statistics.Max}");
+        Console.WriteLine($"Min is {statistics.Min}");
+        Console.WriteLine($"Average is {statistics.Average:N2}");
     }
-
 }
