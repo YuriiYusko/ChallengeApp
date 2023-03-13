@@ -18,39 +18,26 @@ public class HelloWorld
         int iInt = 11;
         employee0.AddGrade(iInt);
 
+        long iLong = 666;
+        employee0.AddGrade(iLong);
+
         double iDouble = 33.5;
         employee0.AddGrade(iDouble);
 
         decimal iDecimal = 25.5M;
         employee0.AddGrade(iDecimal);
 
+        employee0.AddGrade("Dziewięć");
         employee0.AddGrade("89");
 
+
+        employee0.AddGrade('a');
         employee0.AddGrade('9');
 
-        Console.WriteLine("For");
-        var statistics = employee0.GetStatisticsFor();
+
+        var statistics = employee0.GetStatistics();
         Console.WriteLine($"Max is {statistics.Max}");
         Console.WriteLine($"Min is {statistics.Min}");
         Console.WriteLine($"Average is {statistics.Average:N2}");
-        Console.WriteLine();
-        Console.WriteLine("ForEach");
-        statistics = employee0.GetStatisticsForEach();
-        Console.WriteLine($"Max is {statistics.Max}");
-        Console.WriteLine($"Min is {statistics.Min}");
-        Console.WriteLine($"Average is {statistics.Average:N2}");
-        Console.WriteLine();
-        Console.WriteLine("While");
-        statistics = employee0.GetStatisticsWhile();
-        Console.WriteLine($"Max is {statistics.Max}");
-        Console.WriteLine($"Min is {statistics.Min}");
-        Console.WriteLine($"Average is {statistics.Average:N2}");
-        Console.WriteLine();
-        Console.WriteLine("DoWhile");
-        statistics = employee0.GetStatisticsDoWhile();
-        Console.WriteLine($"Max is {statistics.Max}");
-        Console.WriteLine($"Min is {statistics.Min}");
-        Console.WriteLine($"Average is {statistics.Average:N2}");
-        Console.WriteLine();
     }
 }
