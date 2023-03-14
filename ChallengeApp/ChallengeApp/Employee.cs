@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -105,13 +106,36 @@ namespace ChallengeApp
             statistics.Average = 0;
             statistics.Max = float.MinValue;
             statistics.Min = float.MaxValue;
+
             foreach (var grade in this.grades)
             {
                 statistics.Max = Math.Max(statistics.Max, grade);
                 statistics.Min = Math.Min(statistics.Min, grade);
                 statistics.Average += grade;
+            
             }
+
             statistics.Average /= this.grades.Count;
+
+            switch (statistics.Average)
+            {
+                case var average when average >= 80:
+                    statistics.AverageLeter = 'A'; 
+                    break;
+                case var average when average >= 60:
+                    statistics.AverageLeter = 'B';
+                    break;
+                case var average when average >= 40:
+                    statistics.AverageLeter = 'C';
+                    break;
+                case var average when average >= 20:
+                    statistics.AverageLeter = 'D';
+                    break;
+                default:
+                    statistics.AverageLeter = 'E';
+                    break;
+            }
+
             return statistics;
         }
     }

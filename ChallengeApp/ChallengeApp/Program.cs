@@ -7,37 +7,23 @@ public class HelloWorld
 {
     public static void Main(string[] args)
     {
-        var employee0 = new Employee("Yurii", "Yusko");
+        Console.WriteLine("Witamy w programie XYZ do oceny pracowników");
+        Console.WriteLine("===========================================");
+        Console.WriteLine("Podaj oceny pracownika:");
 
-        byte iByte = 25;
-        employee0.AddGrade(iByte);
+        var employee = new Employee("Yurii", "Yusko");
 
-        short iShort = 72;
-        employee0.AddGrade(iShort);
+        while (true)
+        {
+            var input = Console.ReadLine();
+            if (input == "e") { break; }
+            employee.AddGrade(input);
+        }
 
-        int iInt = 11;
-        employee0.AddGrade(iInt);
-
-        long iLong = 666;
-        employee0.AddGrade(iLong);
-
-        double iDouble = 33.5;
-        employee0.AddGrade(iDouble);
-
-        decimal iDecimal = 25.5M;
-        employee0.AddGrade(iDecimal);
-
-        employee0.AddGrade("Dziewięć");
-        employee0.AddGrade("89");
-
-
-        employee0.AddGrade('a');
-        employee0.AddGrade('9');
-
-
-        var statistics = employee0.GetStatistics();
-        Console.WriteLine($"Max is {statistics.Max}");
-        Console.WriteLine($"Min is {statistics.Min}");
-        Console.WriteLine($"Average is {statistics.Average:N2}");
+        var statistics = employee.GetStatistics();
+        Console.WriteLine($"Max - {statistics.Max}");
+        Console.WriteLine($"Min - {statistics.Min}");
+        Console.WriteLine($"Average - {statistics.Average}");
+        Console.WriteLine($"Average(leter) - {statistics.AverageLeter}");
     }
 }

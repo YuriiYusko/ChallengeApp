@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,14 +14,16 @@ namespace ChallengeApp.Tests
     {
         Random random = new Random();
 
-        Employee emp = new Employee("Test", "Test");
+        
 
         [Test]
         public void EmployeeStatTest()
         {
+            Employee emp = new Employee("Test", "Test");
+
             float Average = 0;
-            var Max = float.MinValue;
-            var Min = float.MaxValue;
+            float Max = float.MinValue;
+            float Min = float.MaxValue;
 
             for (int i = 0; i < 10; i++){
                 var value = random.Next(101);
@@ -29,16 +33,56 @@ namespace ChallengeApp.Tests
                 Min = Math.Min(value, Min);
                 Average += value;
             }
-
-            Console.WriteLine($"Max is - {Max}");
-            Console.WriteLine($"Min is - {Min}");
-            Console.WriteLine($"Average is - {Average / 10}");
-
+            Average /= 10;
             Statistics stat = emp.GetStatistics();
+
+            Console.WriteLine($"Max result - {emp.GetStatistics().Max}, expectation - {Max}");
+            Console.WriteLine($"Min result - {emp.GetStatistics().Min}, expectation - {Min}");
+            Console.WriteLine($"Average result - {emp.GetStatistics().Average}, expectation - {Average}");
 
             Assert.That(stat.Max, Is.EqualTo(Max));
             Assert.That(stat.Min, Is.EqualTo(Min));
-            Assert.That(stat.Average, Is.EqualTo(Average / 10));
+            Assert.That(stat.Average, Is.EqualTo(Average));
+        }
+
+        [Test]
+        public void EmploeyyStatTestLeter()
+        {
+            Employee emp = new Employee("Test", "Test");
+
+            float average = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                var value = random.Next(101);
+                Console.WriteLine($"{i + 1} - {value}");
+                emp.AddGrade(value);
+                average += value;
+            }
+            average /= 10;
+            Console.WriteLine($"Average is - {average}");
+
+            char Leter;
+            switch (average)
+            {
+                case var aver when aver >= 80:
+                    Leter = 'A';
+                    break;
+                case var aver when aver >= 60:
+                    Leter = 'B';
+                    break;
+                case var aver when aver >= 40:
+                    Leter = 'C';
+                    break;
+                case var aver when aver >= 20:
+                    Leter = 'D';
+                    break;
+                default:
+                    Leter = 'E';
+                    break;
+            }
+            Console.WriteLine($"Result - {emp.GetStatistics().AverageLeter}, expectation - {Leter}");
+            Assert.AreEqual(emp.GetStatistics().AverageLeter, Leter);
         }
     }
 }
