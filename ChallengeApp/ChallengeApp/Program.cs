@@ -10,20 +10,22 @@ public class HelloWorld
         Console.WriteLine("Witamy w programie XYZ do oceny pracowników");
         Console.WriteLine("===========================================");
         Console.WriteLine("Podaj oceny pracownika:");
+        Console.WriteLine("1). Znaczenie cyfrowe od 0 do 100");
+        Console.WriteLine("2). Literą: A=100, B=80, C=60, D=40, E=20");
 
         var employee = new Employee("Yurii", "Yusko");
 
         while (true)
         {
             var input = Console.ReadLine();
-            if (input == "e") { break; }
+            if (input == "q") { break; }
             employee.AddGrade(input);
         }
 
         var statistics = employee.GetStatistics();
         Console.WriteLine($"Max - {statistics.Max}");
         Console.WriteLine($"Min - {statistics.Min}");
-        Console.WriteLine($"Average - {statistics.Average}");
+        Console.WriteLine($"Average - {statistics.Average:N2}");
         Console.WriteLine($"Average(leter) - {statistics.AverageLeter}");
     }
 }

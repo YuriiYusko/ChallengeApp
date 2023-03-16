@@ -25,53 +25,78 @@ namespace ChallengeApp
         public void AddGrade(byte grade)
         {
             float gradeFloat = grade;
-            if (Validation(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
         }
 
         public void AddGrade(short grade)
         {
             float gradeFloat = grade;
-            if (Validation(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
         }
 
         public void AddGrade(int grade)
         {
             float gradeFloat = grade;
-            if (Validation(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
         }
 
         public void AddGrade(long grade)
         {
             float gradeFloat = grade;
-            if (Validation(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
         }
 
         public void AddGrade(float grade)
         {
-            if (Validation(grade)) { grades.Add(grade); }
+            if (ValidationBetween0and100(grade)) { grades.Add(grade); }
         }
 
         public void AddGrade(double grade)
         {
             float gradeFloat = (float)grade;
-            if (Validation(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
         }
 
         public void AddGrade(decimal grade)
         {
             float gradeFloat = (float)grade;
-            if (Validation(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
         }
 
         public void AddGrade(char grade)
         {
             if (float.TryParse(grade.ToString(), out float result))
             {
-                if (Validation(result)) { grades.Add(result); }
+                if (ValidationBetween0and100(result)) { grades.Add(result); }
             }
             else
             {
-                Console.WriteLine($"Attention: Char '{grade}' cannot be converted to float.");
+                switch (grade)
+                {
+                    case 'A':
+                    case 'a':
+                        grades.Add(100);
+                        break;
+                    case 'B':
+                    case 'b':
+                        grades.Add(80);
+                        break;
+                    case 'C':
+                    case 'c':
+                        grades.Add(60);
+                        break;
+                    case 'D':
+                    case 'd':
+                        grades.Add(40);
+                        break;
+                    case 'E':
+                    case 'e':
+                        grades.Add(20);
+                        break;
+                    default:
+                        Console.WriteLine($"Attention: '{grade}' cannot be converted to float.");
+                        break;
+                }
             }
         }
 
@@ -79,15 +104,41 @@ namespace ChallengeApp
         {
             if (float.TryParse(grade, out float result))
             {
-                if (Validation(result)) { grades.Add(result); }
+                if (ValidationBetween0and100(result)) { grades.Add(result); }
             }
             else
             {
-                Console.WriteLine($"Attention: String '{grade}' cannot be converted to float.");
+                switch (grade)
+                {
+                    case "A":
+                    case "a":
+                        grades.Add(100);
+                        break;
+                    case "B":
+                    case "b":
+                        grades.Add(80);
+                        break;
+                    case "C":
+                    case "c":
+                        grades.Add(60);
+                        break;
+                    case "D":
+                    case "d":
+                        grades.Add(40);
+                        break;
+                    case "E":
+                    case "e":
+                        grades.Add(20);
+                        break;
+                    default:
+                        Console.WriteLine($"Attention: '{grade}' cannot be converted to float.");
+                        break;
+                }
             }
+
         }
 
-        private bool Validation(float grade)
+        private bool ValidationBetween0and100(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
@@ -112,7 +163,7 @@ namespace ChallengeApp
                 statistics.Max = Math.Max(statistics.Max, grade);
                 statistics.Min = Math.Min(statistics.Min, grade);
                 statistics.Average += grade;
-            
+
             }
 
             statistics.Average /= this.grades.Count;
@@ -120,7 +171,7 @@ namespace ChallengeApp
             switch (statistics.Average)
             {
                 case var average when average >= 80:
-                    statistics.AverageLeter = 'A'; 
+                    statistics.AverageLeter = 'A';
                     break;
                 case var average when average >= 60:
                     statistics.AverageLeter = 'B';
