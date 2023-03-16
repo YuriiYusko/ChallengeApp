@@ -12,6 +12,7 @@ public class HelloWorld
         Console.WriteLine("Podaj oceny pracownika:");
         Console.WriteLine("1). Znaczenie cyfrowe od 0 do 100");
         Console.WriteLine("2). Literą: A=100, B=80, C=60, D=40, E=20");
+        Console.WriteLine("2). Literą: 'q' - wyswietlić wyniki");
 
         var employee = new Employee("Yurii", "Yusko");
 
@@ -19,7 +20,14 @@ public class HelloWorld
         {
             var input = Console.ReadLine();
             if (input == "q") { break; }
-            employee.AddGrade(input);
+            try
+            {
+                employee.AddGrade(input);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Mesage: {ex.Message}");
+            }
         }
 
         var statistics = employee.GetStatistics();

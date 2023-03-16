@@ -24,50 +24,46 @@ namespace ChallengeApp
 
         public void AddGrade(byte grade)
         {
-            float gradeFloat = grade;
-            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationFrom0to100(grade)) { grades.Add(grade); }
         }
 
         public void AddGrade(short grade)
         {
-            float gradeFloat = grade;
-            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationFrom0to100(grade)) { grades.Add(grade); }
         }
 
         public void AddGrade(int grade)
         {
-            float gradeFloat = grade;
-            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationFrom0to100(grade)) { grades.Add(grade); }
         }
 
         public void AddGrade(long grade)
         {
-            float gradeFloat = grade;
-            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationFrom0to100(grade)) { grades.Add(grade); }
         }
 
         public void AddGrade(float grade)
         {
-            if (ValidationBetween0and100(grade)) { grades.Add(grade); }
+            if (ValidationFrom0to100(grade)) { grades.Add(grade); }
         }
 
         public void AddGrade(double grade)
         {
             float gradeFloat = (float)grade;
-            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationFrom0to100(gradeFloat)) { grades.Add(gradeFloat); }
         }
 
         public void AddGrade(decimal grade)
         {
             float gradeFloat = (float)grade;
-            if (ValidationBetween0and100(gradeFloat)) { grades.Add(gradeFloat); }
+            if (ValidationFrom0to100(gradeFloat)) { grades.Add(gradeFloat); }
         }
 
         public void AddGrade(char grade)
         {
             if (float.TryParse(grade.ToString(), out float result))
             {
-                if (ValidationBetween0and100(result)) { grades.Add(result); }
+                if (ValidationFrom0to100(result)) { grades.Add(result); }
             }
             else
             {
@@ -94,8 +90,7 @@ namespace ChallengeApp
                         grades.Add(20);
                         break;
                     default:
-                        Console.WriteLine($"Attention: '{grade}' cannot be converted to float.");
-                        break;
+                        throw new Exception($"Attention: '{grade}' cannot be converted to float.");
                 }
             }
         }
@@ -104,7 +99,7 @@ namespace ChallengeApp
         {
             if (float.TryParse(grade, out float result))
             {
-                if (ValidationBetween0and100(result)) { grades.Add(result); }
+                if (ValidationFrom0to100(result)) { grades.Add(result); }
             }
             else
             {
@@ -131,14 +126,13 @@ namespace ChallengeApp
                         grades.Add(20);
                         break;
                     default:
-                        Console.WriteLine($"Attention: '{grade}' cannot be converted to float.");
-                        break;
+                        throw new Exception($"Attention: '{grade}' cannot be converted to float.");
                 }
             }
 
         }
 
-        private bool ValidationBetween0and100(float grade)
+        private static bool ValidationFrom0to100(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
@@ -146,8 +140,7 @@ namespace ChallengeApp
             }
             else
             {
-                Console.WriteLine($"Attention: {grade} is incorrect value, correct is between 0 and 100.");
-                return false;
+                throw new Exception($"Attention: {grade} is incorrect value, correct is between 0 and 100.");
             }
         }
 
@@ -168,25 +161,14 @@ namespace ChallengeApp
 
             statistics.Average /= this.grades.Count;
 
-            switch (statistics.Average)
+            statistics.AverageLeter = statistics.Average switch
             {
-                case var average when average >= 80:
-                    statistics.AverageLeter = 'A';
-                    break;
-                case var average when average >= 60:
-                    statistics.AverageLeter = 'B';
-                    break;
-                case var average when average >= 40:
-                    statistics.AverageLeter = 'C';
-                    break;
-                case var average when average >= 20:
-                    statistics.AverageLeter = 'D';
-                    break;
-                default:
-                    statistics.AverageLeter = 'E';
-                    break;
-            }
-
+                var average when average >= 80 => 'A',
+                var average when average >= 60 => 'B',
+                var average when average >= 40 => 'C',
+                var average when average >= 20 => 'D',
+                _ => 'E',
+            };
             return statistics;
         }
     }
