@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -9,18 +10,15 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ChallengeApp
 {
-    public class Employee
+    public class Employee : Person
     {
         private List<float> grades = new();
 
-        public Employee(string name, string surname)
-        {
-            this.Name = name;
-            this.Surname = surname;
-        }
+        public Employee()
+            : this("Noname", "Nosurname", "N") { }
 
-        public string Name { get; private set; }
-        public string Surname { get; private set; }
+        public Employee(string name, string surname, string gender)
+            : base(name, surname, gender) { }
 
         public void AddGrade(byte grade)
         {

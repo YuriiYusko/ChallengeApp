@@ -12,9 +12,9 @@ public class HelloWorld
         Console.WriteLine("Podaj oceny pracownika:");
         Console.WriteLine("1). Znaczenie cyfrowe od 0 do 100");
         Console.WriteLine("2). Literą: A=100, B=80, C=60, D=40, E=20");
-        Console.WriteLine("2). Literą: 'q' - wyswietlić wyniki");
+        Console.WriteLine("3). Literą: 'q' - wyswietlić wyniki");
 
-        var employee = new Employee("Yurii", "Yusko");
+        Employee employee = new Employee("Yurii", "Yusko");
 
         while (true)
         {
