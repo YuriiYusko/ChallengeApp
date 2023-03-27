@@ -17,7 +17,7 @@ namespace ChallengeApp.Tests
         [Test]
         public void EmployeeTestMin()
         {
-            Employee emp = new Employee("Test", "Test");
+            Employee emp = new Employee("Test", "Test", "T");
 
             float Min = float.MaxValue;
 
@@ -36,7 +36,7 @@ namespace ChallengeApp.Tests
         [Test]
         public void EmployeeTestMax()
         {
-            Employee emp = new Employee("Test", "Test");
+            Employee emp = new Employee("Test", "Test", "T");
 
             float Max = float.MinValue;
 
@@ -56,7 +56,7 @@ namespace ChallengeApp.Tests
         [Test]
         public void EmployeeTestAverag()
         {
-            Employee emp = new Employee("Test", "Test");
+            Employee emp = new Employee("Test", "Test", "T");
 
             float Average = 0;
 
@@ -77,7 +77,7 @@ namespace ChallengeApp.Tests
         [Test]
         public void EmploeyyTestLeterPoint()
         {
-            Employee emp = new Employee("Test", "Test");
+            Employee emp = new Employee("Test", "Test", "T");
 
             emp.AddGrade("A");
             Console.WriteLine("A = 100");
@@ -96,7 +96,7 @@ namespace ChallengeApp.Tests
         [Test]
         public void EmploeyyStatTestLeter()
         {
-            Employee emp = new Employee("Test", "Test");
+            Employee emp = new Employee("Test", "Test", "T");
 
             float average = 0;
 

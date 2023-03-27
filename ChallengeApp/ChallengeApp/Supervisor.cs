@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ChallengeApp
 {
-    public class Employee : Person, iEmployee
+    public class Supervisor : Person, iEmployee
     {
         private List<float> grades = new();
 
-        public Employee()
+        public Supervisor()
             : this("Noname", "Nosurname", "N") { }
 
-        public Employee(string name, string surname, string gender)
+        public Supervisor(string name, string surname, string gender)
             : base(name, surname, gender) { }
 
-        public void Hello ()
+        public void Hello()
         {
-            Console.WriteLine($"Czesć,mam na imię {Name} i jestem pracownikiem.");
+            Console.WriteLine($"Czesć,mam na imię {Name} i jestem kierownikiem.");
         }
 
         public void AddGrade(int grade)
@@ -79,39 +75,74 @@ namespace ChallengeApp
 
         public void AddGrade(string grade)
         {
-            if (float.TryParse(grade, out float result))
+            switch (grade)
             {
-                if (ValidationFrom0to100(result)) { grades.Add(result); }
-            }
-            else
-            {
-                switch (grade)
-                {
-                    case "A":
-                    case "a":
-                        grades.Add(100);
+                //--6--
+                case "6":
+                    grades.Add(100);
+                    break;
+                case var gr when (gr == "-6" || gr == "6-"):
+                    grades.Add(95);
+                    break;
+                //--5--
+                case var gr when (gr == "+5" || gr == "5+"):
+                    grades.Add(85);
+                    break;
+                case "5":
+                    grades.Add(80);
+                    break;
+                case var gr when (gr == "-5" || gr == "5-"):
+                    grades.Add(75);
+                    break;
+                //--4--
+                case var gr when (gr == "+4" || gr == "4+"):
+                    grades.Add(65);
+                    break;
+                case "4":
+                    grades.Add(60);
+                    break;
+                case var gr when (gr == "-4" || gr == "4-"):
+                    grades.Add(55);
+                    break;
+                //--3--
+                case var gr when (gr == "+3" || gr == "3+"):
+                    grades.Add(45);
+                    break;
+                case "3":
+                    grades.Add(40);
+                    break;
+                case var gr when (gr == "-3" || gr == "3-"):
+                    grades.Add(35);
+                    break;
+                //--2--
+                case var gr when (gr == "+2" || gr == "2+"):
+                    grades.Add(25);
+                    break;
+                case "2":
+                    grades.Add(20);
+                    break;
+                case var gr when (gr == "-2" || gr == "2-"):
+                    grades.Add(15);
+                    break;
+                //--1--
+                case var gr when (gr == "+1" || gr == "1+"):
+                    grades.Add(5);
+                    break;
+                case "1":
+                    grades.Add(0);
+                    break;
+                //--Default--
+                default:
+                    if (float.TryParse(grade, out float result))
+                    {
+                        if (ValidationFrom0to100(result)) { grades.Add(result); }
                         break;
-                    case "B":
-                    case "b":
-                        grades.Add(80);
-                        break;
-                    case "C":
-                    case "c":
-                        grades.Add(60);
-                        break;
-                    case "D":
-                    case "d":
-                        grades.Add(40);
-                        break;
-                    case "E":
-                    case "e":
-                        grades.Add(20);
-                        break;
-                    default:
+                    }
+                    else
+                    {
                         throw new Exception($"Attention: '{grade}' cannot be converted to float.");
-                }
+                    }
             }
-
         }
 
         public Statistics GetStatistics()
@@ -143,3 +174,4 @@ namespace ChallengeApp
         }
     }
 }
+
