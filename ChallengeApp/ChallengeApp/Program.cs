@@ -11,12 +11,12 @@ public class HelloWorld
         Console.WriteLine("===========================================");
         Console.WriteLine("Podaj oceny pracownika:");
         Console.WriteLine("1). Znaczenie cyfrowe od 0 do 100");
-        Console.WriteLine("2). Literą: A=100, B=80, C=60, D=40, E=20 - dla pracownika");
-        Console.WriteLine("2). Cyfra: 6=100, 5=80, 4=60, 3=40, 2=20 1=0 - dla kierownika");
+        Console.WriteLine("2). Literą: A=100, B=80, C=60, D=40, E=20");
+        //Console.WriteLine("2). Cyfra: 6=100, 5=80, 4=60, 3=40, 2=20 1=0 - dla kierownika");
         Console.WriteLine("3). Literą: 'q' - wyswietlić wyniki");
         Console.WriteLine("===========================================");
 
-        Supervisor employee = new Supervisor("Yurii", "Yusko", "M");
+        EmployeeInFile employee = new EmployeeInFile("Yurii", "Yusko", "M");
         employee.Hello();
 
         while (true)

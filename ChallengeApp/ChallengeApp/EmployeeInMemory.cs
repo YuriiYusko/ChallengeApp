@@ -1,47 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ChallengeApp
 {
-    public class Employee : Person, iEmployee
+    public class EmployeeInMemory : EmployeeBase
     {
         private List<float> grades = new();
 
-        public Employee()
-            : this("Noname", "Nosurname", "N") { }
+        public EmployeeInMemory(string name, string surname, string gender) :
+            base(name, surname, gender)
+        { }
 
-        public Employee(string name, string surname, string gender)
-            : base(name, surname, gender) { }
-
-        public void Hello ()
-        {
-            Console.WriteLine($"Czesć,mam na imię {Name} i jestem pracownikiem.");
-        }
-
-        public void AddGrade(int grade)
+        public override void AddGrade(int grade)
         {
             if (ValidationFrom0to100(grade)) { grades.Add(grade); }
         }
 
-        public void AddGrade(float grade)
+        public override void AddGrade(float grade)
         {
             if (ValidationFrom0to100(grade)) { grades.Add(grade); }
         }
 
-        public void AddGrade(double grade)
+        public override void AddGrade(double grade)
         {
             float gradeFloat = (float)grade;
             if (ValidationFrom0to100(gradeFloat)) { grades.Add(gradeFloat); }
         }
 
-        public void AddGrade(char grade)
+        public override void AddGrade(char grade)
         {
             if (float.TryParse(grade.ToString(), out float result))
             {
@@ -77,7 +66,7 @@ namespace ChallengeApp
             }
         }
 
-        public void AddGrade(string grade)
+        public override void AddGrade(string grade)
         {
             if (float.TryParse(grade, out float result))
             {
@@ -111,10 +100,9 @@ namespace ChallengeApp
                         throw new Exception($"Attention: '{grade}' cannot be converted to float.");
                 }
             }
-
         }
 
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
             statistics.Average = 0;
@@ -126,7 +114,6 @@ namespace ChallengeApp
                 statistics.Max = Math.Max(statistics.Max, grade);
                 statistics.Min = Math.Min(statistics.Min, grade);
                 statistics.Average += grade;
-
             }
 
             statistics.Average /= this.grades.Count;
@@ -141,5 +128,6 @@ namespace ChallengeApp
             };
             return statistics;
         }
+
     }
 }
