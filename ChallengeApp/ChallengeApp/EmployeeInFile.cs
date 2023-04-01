@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,25 +10,23 @@ namespace ChallengeApp
 {
     internal class EmployeeInFile : EmployeeBase
     {
-        private string fileName = "grades.txt";
+        //Variables
+        private readonly string fileName = "data/grades.txt";
+        private List<float> grades;
 
-        private List<float> grades = new();
-
+        //Constructors
         public EmployeeInFile(string name, string surname, string gender) :
-            base(name, surname, gender)
-        { }
-
-        public override void AddGrade(int grade)
+            base(name, surname, gender) 
         {
-            if (ValidationFrom0to100(grade))
-            {
-                using (var writer = File.AppendText(fileName))
-                {
-                    writer.WriteLine(grade);
-                }
-            }
+            grades = new();
+            File.WriteAllText(fileName, string.Empty);
         }
 
+        //Methods
+        public override void AddGrade(int grade)
+        {
+            AddGrade((float)grade);
+        }
         public override void AddGrade(float grade)
         {
             if (ValidationFrom0to100(grade))
@@ -36,32 +35,20 @@ namespace ChallengeApp
                 {
                     writer.WriteLine(grade);
                 }
+                OnGradeAdde(new EventArgs());
             }
         }
-
         public override void AddGrade(double grade)
         {
-            float gradeFloat = (float)grade;
-            if (ValidationFrom0to100(gradeFloat))
-            {
-                using (var writer = File.AppendText(fileName))
-                {
-                    writer.WriteLine(gradeFloat);
-                }
-            }
-
+            AddGrade((float)grade);
         }
-
         public override void AddGrade(char grade)
         {
             if (float.TryParse(grade.ToString(), out float result))
             {
                 if (ValidationFrom0to100(result))
                 {
-                    using (var writer = File.AppendText(fileName))
-                    {
-                        writer.WriteLine(grade);
-                    }
+                    AddGrade(result);
                 }
             }
             else
@@ -70,55 +57,36 @@ namespace ChallengeApp
                 {
                     case 'A':
                     case 'a':
-                        using (var writer = File.AppendText(fileName))
-                        {
-                            writer.WriteLine(100);
-                        }
+                        AddGrade(100);
                         break;
                     case 'B':
                     case 'b':
-                        using (var writer = File.AppendText(fileName))
-                        {
-                            writer.WriteLine(80);
-                        }
+                        AddGrade(80);
                         break;
                     case 'C':
                     case 'c':
-                        using (var writer = File.AppendText(fileName))
-                        {
-                            writer.WriteLine(60);
-                        }
+                        AddGrade(60);
                         break;
                     case 'D':
                     case 'd':
-                        using (var writer = File.AppendText(fileName))
-                        {
-                            writer.WriteLine(40);
-                        }
+                        AddGrade(40);
                         break;
                     case 'E':
                     case 'e':
-                        using (var writer = File.AppendText(fileName))
-                        {
-                            writer.WriteLine(20);
-                        }
+                        AddGrade(20);
                         break;
                     default:
                         throw new Exception($"Attention: '{grade}' cannot be converted to float.");
                 }
             }
         }
-
         public override void AddGrade(string grade)
         {
             if (float.TryParse(grade.ToString(), out float result))
             {
                 if (ValidationFrom0to100(result))
                 {
-                    using (var writer = File.AppendText(fileName))
-                    {
-                        writer.WriteLine(grade);
-                    }
+                    AddGrade(result);
                 }
             }
             else
@@ -127,45 +95,29 @@ namespace ChallengeApp
                 {
                     case "A":
                     case "a":
-                        using (var writer = File.AppendText(fileName))
-                        {
-                            writer.WriteLine(100);
-                        }
+                        AddGrade(100);
                         break;
                     case "B":
                     case "b":
-                        using (var writer = File.AppendText(fileName))
-                        {
-                            writer.WriteLine(80);
-                        }
+                        AddGrade(80);
                         break;
                     case "C":
                     case "c":
-                        using (var writer = File.AppendText(fileName))
-                        {
-                            writer.WriteLine(60);
-                        }
+                        AddGrade(60);
                         break;
                     case "D":
                     case "d":
-                        using (var writer = File.AppendText(fileName))
-                        {
-                            writer.WriteLine(40);
-                        }
+                        AddGrade(40);
                         break;
                     case "E":
                     case "e":
-                        using (var writer = File.AppendText(fileName))
-                        {
-                            writer.WriteLine(20);
-                        }
+                        AddGrade(20);
                         break;
                     default:
                         throw new Exception($"Attention: '{grade}' cannot be converted to float.");
                 }
             }
         }
-
         public override Statistics GetStatistics()
         {
             if (File.Exists(fileName))

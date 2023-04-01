@@ -12,12 +12,12 @@ public class HelloWorld
         Console.WriteLine("Podaj oceny pracownika:");
         Console.WriteLine("1). Znaczenie cyfrowe od 0 do 100");
         Console.WriteLine("2). Literą: A=100, B=80, C=60, D=40, E=20");
-        //Console.WriteLine("2). Cyfra: 6=100, 5=80, 4=60, 3=40, 2=20 1=0 - dla kierownika");
         Console.WriteLine("3). Literą: 'q' - wyswietlić wyniki");
         Console.WriteLine("===========================================");
 
-        EmployeeInFile employee = new EmployeeInFile("Yurii", "Yusko", "M");
+        EmployeeInFile employee = new ("Yurii", "Yusko", "M");
         employee.Hello();
+        employee.GradeAdde += EmployeeGradeAdde;
 
         while (true)
         {
@@ -38,5 +38,10 @@ public class HelloWorld
         Console.WriteLine($"Min - {statistics.Min}");
         Console.WriteLine($"Average - {statistics.Average:N2}");
         Console.WriteLine($"Average(leter) - {statistics.AverageLeter}");
+
+        static void EmployeeGradeAdde(object sender, EventArgs args)
+        {
+            Console.WriteLine("Dodano nową ocenę.");
+        }
     }
 }
