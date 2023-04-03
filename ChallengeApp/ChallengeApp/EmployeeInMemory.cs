@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChallengeApp
 {
-    public class EmployeeInMemory : EmployeeBase
+    public class EmployeeInMemory : EmployeeBase, iEmployee
     {
         //Variables
         private List<float> grades;
@@ -106,30 +106,16 @@ namespace ChallengeApp
                 }
             }
         }
+
         public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
 
             foreach (var grade in this.grades)
             {
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Average += grade;
+                statistics.AddGrade(grade);
             }
 
-            statistics.Average /= this.grades.Count;
-
-            statistics.AverageLeter = statistics.Average switch
-            {
-                var average when average >= 80 => 'A',
-                var average when average >= 60 => 'B',
-                var average when average >= 40 => 'C',
-                var average when average >= 20 => 'D',
-                _ => 'E',
-            };
             return statistics;
         }
 

@@ -14,7 +14,7 @@ namespace ChallengeApp
         public event GradeAddeDelegate GradeAdde;
 
         //Constructors
-        public EmployeeBase() 
+        public EmployeeBase()
         {
             this.Name = "Noname";
             this.Surname = "Nosurname";

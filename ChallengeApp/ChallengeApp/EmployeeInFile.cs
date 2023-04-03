@@ -8,17 +8,15 @@ using System.Threading.Tasks;
 
 namespace ChallengeApp
 {
-    internal class EmployeeInFile : EmployeeBase
+    internal class EmployeeInFile : EmployeeBase, iEmployee 
     {
         //Variables
         private readonly string fileName = "data/grades.txt";
-        private List<float> grades;
 
         //Constructors
         public EmployeeInFile(string name, string surname, string gender) :
             base(name, surname, gender) 
         {
-            grades = new();
             File.WriteAllText(fileName, string.Empty);
         }
 
@@ -120,6 +118,8 @@ namespace ChallengeApp
         }
         public override Statistics GetStatistics()
         {
+            var statistics = new Statistics();
+
             if (File.Exists(fileName))
             {
                 using (var reader = File.OpenText(fileName))
@@ -127,33 +127,10 @@ namespace ChallengeApp
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        grades.Add(float.Parse(line));
+                        statistics.AddGrade(float.Parse(line));
                     }
                 }
             }
-
-            var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
-
-            foreach (var grade in this.grades)
-            {
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Average += grade;
-            }
-
-            statistics.Average /= this.grades.Count;
-
-            statistics.AverageLeter = statistics.Average switch
-            {
-                var average when average >= 80 => 'A',
-                var average when average >= 60 => 'B',
-                var average when average >= 40 => 'C',
-                var average when average >= 20 => 'D',
-                _ => 'E',
-            };
             return statistics;
         }
     }
